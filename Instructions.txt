@@ -1,0 +1,37 @@
+
+Client
+  To build the frontend code in the client folder you need nodejs version 9.7.1
+  With nodejs installed go to the client folder and type:
+
+  For setup
+    npm i -g npm (to update npm)
+    npm install
+  
+  To run in development mode
+    npm run dev
+
+  To build project to the dist folder
+    npm run build
+
+
+Server
+  The server uses python 3.6.4 and flask so you have to get that installed before you run the project
+  I like to set it up in a virtual environment so this is what i do.
+  Go the the server folder and type:
+  
+  For setup
+    pip install --upgrade pip
+    pip install virtualenv
+    virtualenv venv
+    ./venv/Scripts/pip install flask
+    ./venv/Scripts/pip install requests
+  
+  To run project
+    ./venv/Scripts/python ./server
+
+    
+Database
+  Currently empty.
+
+  
+Both projects work pretty well with Webstorm and Pycharm respectively, you just have to point pycharm to the right virtual environment.
