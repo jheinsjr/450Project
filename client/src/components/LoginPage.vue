@@ -3,24 +3,24 @@
     <h1>Login</h1>
 
     <label for="username-input">Login:</label>
-    <input id="username-input" type="text" v-model="username" :class="{ 'input-error': usernameMsg.length !== 0 }">
+    <input id="username-input" type="text" v-model="username" @keyup.enter="login" :class="{ 'input-error': usernameMsg.length !== 0 }">
     <div>{{usernameMsg}}</div>
 
     <label for="password-input">Password:</label>
-    <input id="password-input" type="password" v-model="password" :class="{ 'input-error': passwordMsg.length !== 0 }">
+    <input id="password-input" type="password" v-model="password" @keyup.enter="login" :class="{ 'input-error': passwordMsg.length !== 0 }">
     <div>{{passwordMsg}}</div>
 
     <div>
-      <button @click="loggin">login</button>
+      <button @click="login">login</button>
     </div>
 
-    <div>{{generalMsg}}</div>
-
-    <router-link v-if="success" to="/tasks">View Tasks</router-link>
+    <!-- <router-link v-if="success" to="/tasks">View Tasks</router-link> -->
   </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+
 export default {
   name: 'login-page',
 
@@ -28,33 +28,17 @@ export default {
     return {
       username: '',
       password: '',
-      success: false,
-      generalMsg: '',
       runOnce: false
     }
   },
 
   methods: {
-    loggin: function () {
+    ...mapActions({loginAction: 'LOGIN'}),
+
+    login: function () {
       if (this.validate()) {
-        let url = 'http://127.0.0.1:8080/api/login'
         let data = {'username': this.username, 'password': this.password}
-        this.axios.post(url, data)
-          .then(response => {
-            if (response.data.status === 'success') {
-              this.success = true
-              this.generalMsg = `You logged in as ${data.username}`
-            } else {
-              this.generalMsg = response.reason
-              this.success = false
-            }
-          })
-          .catch(function (reason) {
-            this.generalMsg = 'server error'
-            this.success = false
-          }).finally(() => {
-            this.runOnce = true
-          })
+        this.loginAction(data)
       }
     },
 
@@ -64,7 +48,17 @@ export default {
     }
   },
 
+  watch: {
+    isLoggedIn: function (newValue) {
+      if (newValue) {
+        this.$router.push('tasks')
+      }
+    }
+  },
+
   computed: {
+    ...mapGetters(['isLoggedIn']),
+
     usernameMsg: function () {
       if (this.runOnce && this.username.length === 0) {
         return 'Please enter a valid username.'

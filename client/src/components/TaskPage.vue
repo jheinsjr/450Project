@@ -2,43 +2,38 @@
   <div>
     <h1>Tasks</h1>
 
-    <ul v-if="displayTasks">
-      <li v-for="task in tasks" :key="task.id">
+    <ul>
+      <li v-for="task in this.$store.state.tasks" :key="task.id">
         {{ task.name }}
       </li>
     </ul>
-    <div v-else>{{alternativeMessage}}</div>
+
+    <button @click="updateTasks()">Update</button>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   name: 'task-page',
   data: function () {
     return {
-      tasks: [],
-      displayTasks: false,
-      alternativeMessage: ''
     }
   },
 
+  methods: {
+    ...mapActions({
+      updateTasks: 'UPDATE_TASKS'
+    })
+  },
+
   created: function () {
-    let url = 'http://127.0.0.1:8080/api/get_tasks'
-    this.axios.get(url)
-      .then(response => {
-        if (response.data.status === 'success') {
-          this.tasks = response.data.tasks
-          this.displayTasks = true
-        } else {
-          this.alternativeMessage = response.data.reason
-          this.tasks = []
-          this.displayTasks = false
-        }
-      }).catch(() => {
-        this.alternativeMessage = 'Error connecting to server'
-        this.tasks = []
-        this.displayTasks = false
-      })
+    if (this.$store.getters.isLoggedIn) {
+      this.updateTasks()
+    } else {
+      this.$router.push('/login')
+    }
   }
 }
 </script>

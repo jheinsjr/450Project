@@ -24,17 +24,35 @@ dummy_user_data = {
 @app.route('/api/login', methods=["POST"])
 def api_login():
     request_data = request.json
-    username = request_data["username"]
-    password = request_data["password"]
+    username = request_data.get("username")
+    password = request_data.get("password")
 
-    user = dummy_user_data.get(username)
-    if username in dummy_user_data is not None and user["password"] == password:
-        result = {"status": "success"}
-        session["user"] = username
+    if username is not None and password is not None:
+        user = dummy_user_data.get(username)
+        if user is not None and user["password"] == password:
+            session["user"] = username
+            return jsonify({"status": "success"}), 200
+
+    return jsonify({"status": "failed"}), 200
+
+
+@app.route('/api/login_check')
+def api_login_check():
+    user = session.get("user")
+    if user is not None:
+        return jsonify({"status": "success", "username": user})
     else:
-        result = {"status": "failed"}
+        return jsonify({"status": "failed", "reason": "not logged in"})
 
-    return jsonify(result), 200
+
+@app.route('/api/logout')
+def api_logout():
+    user = session.get("user")
+    if user is not None:
+        session.pop("user")
+        return jsonify({"status": "success"})
+    else:
+        return jsonify({"status": "failed", "reason": "not logged in"})
 
 
 @app.route('/api/get_tasks', methods=["GET"])
