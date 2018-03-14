@@ -33,7 +33,7 @@ def api_login():
             session["user"] = username
             return jsonify({"status": "success"}), 200
 
-    return jsonify({"status": "failed"}), 200
+    return jsonify({"status": "failed", "reason": "login is not valid"}), 200
 
 
 @app.route('/api/login_check')

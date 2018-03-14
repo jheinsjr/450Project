@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LoginPage from '@/components/LoginPage'
-import TaskPage from '@/components/TaskPage'
+import LoginPage from '@/views/LoginPage'
+import TaskPage from '@/views/TaskPage'
+import CreateAccount from '@/views/CreateAccountPage'
 
 Vue.use(Router)
 
@@ -15,6 +16,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: LoginPage
+    },
+    {
+      path: '/create_account',
+      name: 'CreateAccount',
+      component: CreateAccount
     },
     {
       path: '/tasks',
