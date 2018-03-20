@@ -32,7 +32,7 @@ export default new Vuex.Store({
       state.login.errorMsg = response
     },
     TASK_UPDATE (state, {tasks}) {
-      state.tasks = tasks
+      state.tasks.taskList = tasks
       state.tasks.errorMsg = ''
     },
     TASK_UPDATE_FAILED (state, response) {
