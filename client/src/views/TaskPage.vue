@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div style="margin-top: 70px">
     <h1>Tasks</h1>
 
     <ul>
       <li v-for="task in $store.state.tasks.taskList" :key="task.id">
-        {{ task.name }}
+        <task :task-name="task.name"/>
       </li>
     </ul>
 
@@ -14,9 +14,11 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import Task from '../components/Task'
 
 export default {
   name: 'task-page',
+  components: {Task},
   data () {
     return {
     }

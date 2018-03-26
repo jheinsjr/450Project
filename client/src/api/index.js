@@ -7,21 +7,22 @@ const config = {
 
 function apiCall (api, method) {
   const url = `${config.address}/api/${api}`
-  return function (data, successCallback, failedCallback) {
-    axios.request({
-      url: url,
-      method: method,
-      data: data
-    }).then(response => {
+  return async function (data, successCallback, failedCallback) {
+    try {
+      const response = await axios.request({
+        url: url,
+        method: method,
+        data: data
+      })
+
       if (response.data.status === 'success') {
         successCallback(response.data)
       } else {
         failedCallback(response.data.reason)
       }
-    })
-      .catch(reason => {
-        failedCallback(reason)
-      })
+    } catch (e) {
+      failedCallback(e)
+    }
   }
 }
 

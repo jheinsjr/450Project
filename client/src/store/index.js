@@ -41,13 +41,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    LOGIN ({commit, state}, data) {
+    LOGIN ({commit}, data) {
       api.login(data,
         () => commit('LOGIN_SUCCESS', data),
         (response) => commit('LOGIN_FAILED', response)
       )
     },
-    UPDATE_TASKS ({commit, state}, data) {
+    UPDATE_TASKS ({commit}) {
       api.get_tasks({},
         (response) => commit('TASK_UPDATE', response),
         (response) => commit('TASK_UPDATE_FAILED', response)

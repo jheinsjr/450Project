@@ -5,17 +5,28 @@
     </div>
     <div class="input-grid">
       <label for="username-input">Login:</label>
-      <input id="username-input" type="text" v-model="username" class="input" @keyup.enter="login">
+      <input
+        v-model="username"
+        id="username-input"
+        type="text"
+        class="input"
+        @keyup.enter="login">
 
       <label for="password-input">Password:</label>
-      <input id="password-input" type="password" v-model="password" class="input" @keyup.enter="login">
-
-      <div>
-        <button class="btn" @click="login">login</button>
-      </div>
+      <input
+        v-model="password"
+        id="password-input"
+        type="password"
+        class="input"
+        @keyup.enter="login">
+    </div>
+    <div>
+      <button
+        class="btn"
+        @click="login">login</button>
     </div>
 
-    <div class="error">{{$store.state.login.errorMsg}}</div>
+    <div class="error">{{ $store.state.login.errorMsg }}</div>
   </div>
 </template>
 
@@ -23,7 +34,7 @@
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
-  name: 'login-page',
+  name: 'LoginPage',
 
   data () {
     return {
@@ -41,32 +52,33 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters(['isLoggedIn'])
+  },
+
   watch: {
     isLoggedIn (newValue) {
       if (newValue) {
         this.$router.push('tasks')
       }
     }
-  },
-
-  computed: {
-    ...mapGetters(['isLoggedIn'])
   }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .login-pane {
-  margin: 50px auto auto auto;
-  width: 400px;
+  margin: 100px auto auto auto;
+  width: min-content;
+  padding-bottom: 20px;
 }
 
 .input-grid {
   display: grid;
   grid-gap: 5px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 250px;
   align-items: center;
-  margin: 15px;
+  padding: 20px 20px 5px 20px;
 }
 
 .input-grid label {

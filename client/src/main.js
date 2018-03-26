@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import App from './App'
 import router from './router'
 import store from './store'
+import App from './App'
 import './assets/styles.less'
 
 Vue.config.productionTip = false

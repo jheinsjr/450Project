@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LoginPage from '@/views/LoginPage'
-import TaskPage from '@/views/TaskPage'
-import CreateAccount from '@/views/CreateAccountPage'
+import LoginPage from '../views/LoginPage'
+import TaskPage from '../views/TaskPage'
+import CreateAccount from '../views/CreateAccountPage'
 
 Vue.use(Router)
 
