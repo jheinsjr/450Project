@@ -13,12 +13,10 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-import Task from '../components/Task'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'task-page',
-  components: {Task},
   data () {
     return {
     }

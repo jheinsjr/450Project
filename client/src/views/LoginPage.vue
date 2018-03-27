@@ -21,12 +21,10 @@
         @keyup.enter="login">
     </div>
     <div>
-      <button
-        class="btn"
-        @click="login">login</button>
+      <button class="btn" @click="login">login</button>
+      Just a test: <font-awesome-icon icon="spinner" spin size="lg" />
+      <div class="error">{{ $store.state.login.errorMsg }}</div>
     </div>
-
-    <div class="error">{{ $store.state.login.errorMsg }}</div>
   </div>
 </template>
 
