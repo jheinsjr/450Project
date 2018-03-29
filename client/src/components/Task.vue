@@ -13,8 +13,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+@import "../assets/styles.less";
+
 .task {
   display: inline;
+  background-color: red;
 }
+
+
+
 </style>

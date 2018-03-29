@@ -6,26 +6,16 @@ import VueAxios from 'vue-axios'
 import router from './router'
 import store from './store'
 
-import fontawesome from '@fortawesome/fontawesome'
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import { faSpinner } from '@fortawesome/fontawesome-free-solid'
-
 import './assets/styles.less'
-
 import App from './App'
-import Task from './components/Task'
-import Navbar from './components/Navbar'
+import Icons from './assets/icons'
+import Components from './components'
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 
-//fa
-fontawesome.library.add(faSpinner)
-
-//components
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-Vue.component('task', Task)
-Vue.component('navbar', Navbar)
+Icons.init()
+Components.init()
 
 /* eslint-disable no-new */
 new Vue({

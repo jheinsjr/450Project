@@ -1,24 +1,36 @@
 <template>
   <div class="navbar">
+    <div class="navbar-left">
     <div v-for="route in routes"
          class="navbar-item"
          :key="route.to"
          :class="{'navbar-active': $route.path === route.to}">
       <router-link :to="route.to">{{route.name}}</router-link>
     </div>
+    </div>
+
+    <div class="navbar-right">
+      <div v-if="isLoggedIn" class="navbar-item"><router-link to="/logout">Logout</router-link></div>
+      <div v-else class="navbar-item"><router-link to="/login">Login</router-link></div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'navbar',
   data: function () {
     return {
       routes: [
-        {name: 'Login', to: '/login'},
         {name: 'Tasks', to: '/tasks'}
       ]
     }
+  },
+
+  computed: {
+    ...mapGetters(['isLoggedIn'])
   }
 }
 </script>
@@ -36,6 +48,14 @@ export default {
   background-color: @color-dark;
 
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.35);
+}
+
+.navbar-left {
+  float: left;
+}
+
+.navbar-right {
+  float: right;
 }
 
 .navbar-item {

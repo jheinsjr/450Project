@@ -2,11 +2,12 @@
   <div style="margin-top: 70px">
     <h1>Tasks</h1>
 
-    <ul>
-      <li v-for="task in $store.state.tasks.taskList" :key="task.id">
-        <task :task-name="task.name"/>
-      </li>
-    </ul>
+    <div class="task-pane">
+      <task
+      v-for="task in $store.state.tasks.taskList"
+      :key="task.id"
+      :task-name="task.name"/>
+    </div>
 
     <button class="btn" @click="updateTasks()">Update</button>
   </div>
@@ -42,5 +43,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.task-pane {
+  width: 300px;
+  background-color: gray;
+}
 </style>

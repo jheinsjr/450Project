@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LoginPage from '../views/LoginPage'
+import LogoutPage from '../views/LogoutPage'
 import TaskPage from '../views/TaskPage'
 import CreateAccount from '../views/CreateAccountPage'
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: LoginPage
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: LogoutPage
     },
     {
       path: '/create_account',

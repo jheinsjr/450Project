@@ -31,6 +31,10 @@ export default new Vuex.Store({
       state.login.username = ''
       state.login.errorMsg = response
     },
+    LOGOUT_SUCCESS (state) {
+      state.login.username = ''
+      state.login.errorMsg = ''
+    },
     TASK_UPDATE (state, {tasks}) {
       state.tasks.taskList = tasks
       state.tasks.errorMsg = ''
@@ -46,6 +50,12 @@ export default new Vuex.Store({
         () => commit('LOGIN_SUCCESS', data),
         (response) => commit('LOGIN_FAILED', response)
       )
+    },
+    LOGOUT ({commit}) {
+      api.logout({},
+        () => commit('LOGOUT_SUCCESS'),
+        () => {}
+        )
     },
     UPDATE_TASKS ({commit}) {
       api.get_tasks({},
