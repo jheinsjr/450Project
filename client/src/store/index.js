@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '../api'
 
+// This is admittedly complex, it's all about application state.
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -40,7 +41,7 @@ export default new Vuex.Store({
       state.tasks.errorMsg = ''
     },
     TASK_UPDATE_FAILED (state, response) {
-      state.tasks = []
+      state.tasks.taskList = []
       state.tasks.errorMsg = response
     }
   },

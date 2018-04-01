@@ -4,13 +4,10 @@ import Task from './Task'
 import TaskEdit from './TaskEdit'
 
 export default {
-  components: [
-    Navbar,
-    Task,
-    TaskEdit
-  ],
-
   init () {
-    this.components.forEach(c => Vue.component(c.name, c))
+    // register the components so they can be used.
+    Vue.component(Navbar.name, Navbar)
+    Vue.component(Task.name, Task)
+    Vue.component(TaskEdit.name, TaskEdit)
   }
 }

@@ -23,7 +23,7 @@
       </div>
 
       <div>
-        <router-link to="\login">Already have an account?</router-link>
+        <router-link to="/login">Already have an account?</router-link>
       </div>
 
       <div v-for="error in errorList" :key="error" class="error">{{error}}</div>

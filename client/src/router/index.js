@@ -5,6 +5,7 @@ import LogoutPage from '../views/LogoutPage'
 import TaskPage from '../views/TaskPage'
 import CreateAccount from '../views/CreateAccountPage'
 
+//Setting up are urls
 Vue.use(Router)
 
 export default new Router({

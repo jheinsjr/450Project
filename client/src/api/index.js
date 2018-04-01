@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+//Trying to define functions for our api calls
+//IDK if this is a good way to do it
+
 const config = {
   address: 'http://127.0.0.1:8080',
   debug: true
