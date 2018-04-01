@@ -1,7 +1,13 @@
 import requests
-from flask import Flask, request, jsonify, session
+from flask import Flask, jsonify, session
+from flask_restful import Api
+from api.login import Login
+
 app = Flask(__name__)#, static_folder="../client/dist", static_url_path="")
 app.secret_key = b'\xc9\x82:\xf6\x9c\x993\x83\xa5\xa3e\xda\x9f\xb8\xf7\x86\xe0\xaeSd\x147K4'
+api = Api(app)
+api.add_resource(Login, '/api/login')
+
 
 dummy_user_data = {
     "bob": {
@@ -19,21 +25,6 @@ dummy_user_data = {
         ]
     }
 }
-
-
-@app.route('/api/login', methods=["POST"])
-def api_login():
-    request_data = request.json
-    username = request_data.get("username")
-    password = request_data.get("password")
-
-    if username is not None and password is not None:
-        user = dummy_user_data.get(username)
-        if user is not None and user["password"] == password:
-            session["user"] = username
-            return jsonify({"status": "success"}), 200
-
-    return jsonify({"status": "failed", "reason": "login is not valid"}), 200
 
 
 @app.route('/api/login_check')

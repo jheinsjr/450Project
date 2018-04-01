@@ -23,8 +23,7 @@ Server
     pip install --upgrade pip
     pip install virtualenv
     virtualenv venv
-    ./venv/Scripts/pip install flask
-    ./venv/Scripts/pip install requests
+    ./venv/Scripts/pip install flask requests flask-RESTful PyMySQL SQLAlchemy
   
   To run project
     ./venv/Scripts/python ./server
