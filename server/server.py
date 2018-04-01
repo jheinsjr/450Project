@@ -1,64 +1,15 @@
 import requests
 from flask import Flask, jsonify, session
 from flask_restful import Api
-from api.login import Login
+from api.login import Login, Logout
+from api.tasks import TaskList
 
 app = Flask(__name__)#, static_folder="../client/dist", static_url_path="")
 app.secret_key = b'\xc9\x82:\xf6\x9c\x993\x83\xa5\xa3e\xda\x9f\xb8\xf7\x86\xe0\xaeSd\x147K4'
 api = Api(app)
 api.add_resource(Login, '/api/login')
-
-
-dummy_user_data = {
-    "bob": {
-        "password": "1234",
-        "tasks": [
-            {"id": 0, "name": "do that thing"},
-            {"id": 1, "name": "do the other thing"}
-        ]
-    },
-    "fred": {
-        "password": "1234",
-        "tasks": [
-            {"id": 2, "name": "do what fred dose best"},
-            {"id": 3, "name": "very important task for fred"}
-        ]
-    }
-}
-
-
-@app.route('/api/login_check')
-def api_login_check():
-    user = session.get("user")
-    if user is not None:
-        return jsonify({"status": "success", "username": user})
-    else:
-        return jsonify({"status": "failed", "reason": "not logged in"})
-
-
-@app.route('/api/logout')
-def api_logout():
-    user = session.get("user")
-    if user is not None:
-        session.pop("user")
-        return jsonify({"status": "success"})
-    else:
-        return jsonify({"status": "failed", "reason": "not logged in"})
-
-
-@app.route('/api/get_tasks', methods=["GET"])
-def api_get_tasks():
-    user = session.get("user")
-    if user is not None:
-        user_data = dummy_user_data.get(user)
-        if user_data is not None:
-            result = {"status": "success", "tasks": user_data["tasks"]}
-        else:
-            result = {"status": "failed", "reason": "User data could not be found"}
-    else:
-        result = {"status": "failed", "reason": "Not logged in"}
-
-    return jsonify(result), 200
+api.add_resource(Logout, '/api/logout')
+api.add_resource(TaskList, '/api/task-list')
 
 
 @app.route('/', defaults={'path': 'index.html'})

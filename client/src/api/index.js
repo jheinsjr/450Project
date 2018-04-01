@@ -32,5 +32,5 @@ function apiCall (api, method) {
 export default {
   login: apiCall('login', 'POST'),
   logout: apiCall('logout', 'GET'),
-  get_tasks: apiCall('get_tasks', 'GET')
+  get_tasks: apiCall('task-list', 'GET')
 }
