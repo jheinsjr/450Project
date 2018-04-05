@@ -1,6 +1,7 @@
 from flask import session
 from flask_restful import Resource, reqparse
-from database.session import DB
+from sqlalchemy.exc import SQLAlchemyError
+from database.session import get_db
 from database.tables import User
 
 
@@ -10,7 +11,7 @@ class Login(Resource):
     parser.add_argument("password", required=True, type=str)
 
     def post(self):
-        db = DB()
+        db = get_db()
         args = self.parser.parse_args()
 
         user = db.query(User).\
@@ -32,3 +33,22 @@ class Logout(Resource):
             return {"status": "success"}
         else:
             return {"status": "failed", "reason": "not logged in"}
+
+
+class CreateAccount(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument("username", required=True, type=str)
+    parser.add_argument("password", required=True, type=str)
+
+    def post(self):
+        db = get_db()
+        args = self.parser.parse_args()
+
+        try:
+            db.add(User(name=args["username"], password=args["password"]))
+            db.commit()
+            return {"status": "success"}
+        except SQLAlchemyError:
+            db.rollback()
+            return {"status": "failed"}
+

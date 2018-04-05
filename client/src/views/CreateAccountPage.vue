@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import validation from '../util/validation'
+
 export default {
   name: 'create-account-page',
 
@@ -46,19 +48,30 @@ export default {
   },
 
   methods: {
-    create_account () {
+    async create_account () {
       this.errorList = this.validate()
+
+      if (this.errorList.length === 0) {
+          const { data } = await this.axios.post('create_account', { 'username': this.username, 'password': this.passwordA})
+
+          if (data['status'] === 'success') {
+            this.$router.push('/login')
+          } else {
+            this.errorList = [data.message]
+          }
+      }
     },
 
     validate () {
       let errors = []
 
-      if (this.username.length === 0) {
-        errors.push('Username can not be blank')
+
+      if (validation.validateUsername(this.username)) {
+        errors.push('Username dosn\'t validate.')
       }
 
-      if (this.passwordA.length === 0) {
-        errors.push('Password can not be black')
+      if (validation.validatePassword(this.passwordA)) {
+        errors.push('Password dosn\'t validate.')
       } else if (this.passwordA !== this.passwordB) {
         errors.push('Passwords must match')
       }
@@ -74,6 +87,7 @@ export default {
 
   .account-pane {
     margin: 150px auto auto auto;
+    padding-bottom: 25px;
     width: 450px;
   }
 

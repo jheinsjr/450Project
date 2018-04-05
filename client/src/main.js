@@ -20,6 +20,7 @@ import Icons from './assets/icons'
 import Components from './components'
 
 Vue.config.productionTip = false
+axios.defaults.baseURL = 'http://127.0.0.1:8080/api/'
 Vue.use(VueAxios, axios)
 
 // Initialize our other config files

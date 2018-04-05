@@ -1,7 +1,7 @@
 import requests
 from flask import Flask, jsonify, session
 from flask_restful import Api
-from api.login import Login, Logout
+from api.login import Login, Logout, CreateAccount
 from api.tasks import TaskList
 
 app = Flask(__name__)#, static_folder="../client/dist", static_url_path="")
@@ -9,6 +9,7 @@ app.secret_key = b'\xc9\x82:\xf6\x9c\x993\x83\xa5\xa3e\xda\x9f\xb8\xf7\x86\xe0\x
 api = Api(app)
 api.add_resource(Login, '/api/login')
 api.add_resource(Logout, '/api/logout')
+api.add_resource(CreateAccount, '/api/create_account')
 api.add_resource(TaskList, '/api/task-list')
 
 

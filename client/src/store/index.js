@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from '../api'
 
 // This is admittedly complex, it's all about application state.
 Vue.use(Vuex)
@@ -24,7 +23,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    LOGIN_SUCCESS (state, {username}) {
+    LOGIN_SUCCESS (state, username) {
       state.login.username = username
       state.login.errorMsg = ''
     },
@@ -46,23 +45,32 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    LOGIN ({commit}, data) {
-      api.login(data,
-        () => commit('LOGIN_SUCCESS', data),
-        (response) => commit('LOGIN_FAILED', response)
-      )
+    async LOGIN ({commit}, data) {
+      const response = await Vue.axios.post('login', data)
+
+      if (response.data.status === 'success') {
+        commit('LOGIN_SUCCESS', data.username)
+      } else {
+        commit('LOGIN_FAILED', response.data.message)
+      }
     },
-    LOGOUT ({commit}) {
-      api.logout({},
-        () => commit('LOGOUT_SUCCESS'),
-        () => {}
-        )
+    async LOGOUT ({commit}) {
+      await Vue.axios.get('logout')
+
+      commit('LOGOUT_SUCCESS')
     },
-    UPDATE_TASKS ({commit}) {
-      api.get_tasks({},
-        (response) => commit('TASK_UPDATE', response),
-        (response) => commit('TASK_UPDATE_FAILED', response)
-      )
+    async UPDATE_TASKS ({commit}) {
+      const response = await Vue.axios.get('tasks')
+
+      if (response.data.status === 'success') {
+        commit('TASK_UPDATE', response.data)
+      } else {
+        commit('TASK_UPDATE_FAILED', response.data.message)
+      }
+      //api.get_tasks({},
+      //  (response) => commit('TASK_UPDATE', response),
+      //  (response) => commit('TASK_UPDATE_FAILED', response)
+      //)
     }
   }
 })

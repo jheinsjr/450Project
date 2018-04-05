@@ -1,8 +1,8 @@
-from database.session import engine, DB, Base
+from database.session import engine, get_db, Base
 from database.tables import User
 
 meta = Base.metadata
-db = DB()
+db = get_db()
 
 # clear db
 meta.drop_all(engine)
@@ -16,3 +16,4 @@ db.add_all([
 ])
 
 db.commit()
+

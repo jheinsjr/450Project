@@ -30,7 +30,14 @@ Server
 
     
 Database
-  Currently empty.
+  mysqld --initialize-insecure
+  mysqld --console
+
+  [Seprate Console]
+  mysql -u root
+  CREATE DATABASE tasks;
+  GRANT ALL PRIVILEGES ON tasks.* TO 'tasks'@'localhost' IDENTIFIED BY '1234';
+  
 
   
 Both projects work pretty well with Webstorm and Pycharm respectively, you just have to point pycharm to the right virtual environment.
