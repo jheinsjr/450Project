@@ -5,14 +5,7 @@
 
   <div id="task-page">
     <h1>Tasks</h1>
-
-    <div class="task-pane">
-      <task
-      v-for="task in taskList"
-      :key="task.id"
-      :task="task"/>
-    </div>
-
+    <task-list :task-list="taskList" />
     <button class="btn" @click="updateTasks()">Update</button>
   </div>
 </template>
@@ -62,13 +55,5 @@ export default {
 <style lang="less" scoped>
   #task-page {
     margin-top: 70px;
-  }
-
-  .task-pane {
-    margin: auto;
-    width: 300px;
-    height: 300px;
-    overflow-y: scroll;
-    border: solid 1px black;
   }
 </style>

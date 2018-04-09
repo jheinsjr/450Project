@@ -54,7 +54,7 @@ export default {
       if (this.errorList.length === 0) {
           const { data } = await this.axios.post('create_account', { 'username': this.username, 'password': this.passwordA})
 
-          if (data['status'] === 'success') {
+          if (data.status === 'success') {
             this.$router.push('/login')
           } else {
             this.errorList = [data.message]

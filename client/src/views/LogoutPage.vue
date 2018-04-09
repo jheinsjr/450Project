@@ -5,10 +5,9 @@
 <script>
 export default {
   name: 'LogoutPage',
-  created () {
-    this.$store.dispatch('LOGOUT').then(
-      () => this.$router.push('/welcome')
-    )
+  async created () {
+    await this.$store.dispatch('LOGOUT')
+    this.$router.push('/welcome')
   }
 }
 </script>
