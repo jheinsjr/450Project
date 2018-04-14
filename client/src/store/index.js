@@ -67,10 +67,7 @@ export default new Vuex.Store({
       } else {
         commit('TASK_UPDATE_FAILED', response.data.message)
       }
-      //api.get_tasks({},
-      //  (response) => commit('TASK_UPDATE', response),
-      //  (response) => commit('TASK_UPDATE_FAILED', response)
-      //)
     }
-  }
+  },
+  strict: true
 })

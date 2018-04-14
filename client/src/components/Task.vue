@@ -1,15 +1,26 @@
 <template>
   <div class="task">
-    <span class="task-title">{{task.name}}</span>
-    <span class="task-date">{{formatDate(task.date)}}</span>
+    <div class="task-title" @click="$emit('selected')">{{task.title}}</div>
+    <span class="task-status">Status: {{task.status}}</span>
+    <span class="task-date">{{formatDate(task.creationDate)}}</span>
+
+    <transition name="expand">
+      <div v-if="expand" class="extra">
+        Esdfasdf
+        asdfasdf
+        asdfasdfasd
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 export default {
   name: 'task',
+
   props: [
-    'task'
+    'task',
+    'expand'
   ],
 
   methods: {
@@ -27,8 +38,7 @@ export default {
 
   .task {
     text-align: left;
-    border-right: solid 1px @border-color;
-    height: 40px;
+    padding: 5px;
   }
 
   .task:not(:last-child) {
@@ -36,13 +46,31 @@ export default {
   }
 
   .task-title {
-    margin: 4px;
     font-weight: bold;
   }
 
   .task-date {
-    margin: 4px;
     float: right;
   }
 
+  .task-status {
+    margin-left: 5px;
+  }
+
+  .extra {
+    height: 80px;
+  }
+
+  /* always present */
+  .expand-enter-active, .expand-leave-active {
+    transition: all 0.3s ease;
+    height: 80px;
+    overflow: hidden;
+  }
+  /* .expand-enter defines the starting state for entering */
+  /* .expand-leave defines the ending state for leaving */
+  .expand-enter, .expand-leave-to {
+    height: 0;
+    opacity: 0;
+  }
 </style>
