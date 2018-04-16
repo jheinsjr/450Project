@@ -23,20 +23,22 @@ Server
     pip install --upgrade pip
     pip install virtualenv
     virtualenv venv
-    ./venv/Scripts/pip install flask requests flask-RESTful PyMySQL SQLAlchemy
+    ./venv/Scripts/pip install -r requirements.txt
   
   To run project
-    ./venv/Scripts/python ./server
+  Debug
+    ./venv/Scripts/python ./server.py
+  Productiom
+    ./venv/Scripts/python ./server.py production
+  Create new database file
+    ./venv/Scripts/python ./server.py setup
+	
 
     
 Database
-  mysqld --initialize-insecure
-  mysqld --console
-
-  [Seprate Console]
-  mysql -u root
-  CREATE DATABASE tasks;
-  GRANT ALL PRIVILEGES ON tasks.* TO 'tasks'@'localhost' IDENTIFIED BY '1234';
+  Database changed to sqlite
+  To setup run:
+  server.py setup
   
 
   
