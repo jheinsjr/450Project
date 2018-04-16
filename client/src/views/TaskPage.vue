@@ -4,9 +4,8 @@
   -->
 
   <div id="task-page">
-    <h1>Tasks</h1>
     <task-list :task-list="taskList" />
-    <button class="btn" @click="updateTasks()">Update</button>
+    <!--<button class="btn" @click="updateTasks()">Update</button>-->
   </div>
 </template>
 

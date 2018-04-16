@@ -1,6 +1,5 @@
 from flask import session
 from flask_restful import Resource, reqparse
-from database.session import get_db
 from database.tables import User
 
 dummy_data = [

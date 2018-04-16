@@ -1,5 +1,12 @@
 <template>
   <div class="task-pane">
+    <div>Tasks</div>
+    Sort by:
+    <select title="sortBy" v-model="sortBy">
+      <option value="title">Name</option>
+      <option value="creationDate">Date</option>
+    </select>
+
     <div class="list-area">
       <task
         v-for="task in sortedList"
@@ -9,11 +16,6 @@
         @selected="setSelection(task.id)"
       />
     </div>
-    Sort by:
-    <select title="sortBy" v-model="sortBy">
-      <option value="title">Name</option>
-      <option value="creationDate">Date</option>
-    </select>
   </div>
 </template>
 

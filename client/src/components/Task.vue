@@ -1,8 +1,10 @@
 <template>
   <div class="task">
-    <div class="task-title" @click="$emit('selected')">{{task.title}}</div>
-    <span class="task-status">Status: {{task.status}}</span>
-    <span class="task-date">{{formatDate(task.creationDate)}}</span>
+    <div>
+      <div class="task-title" @click="$emit('selected')">{{task.title}}</div>
+      <div class="task-date">{{formatDate(task.creationDate)}}</div>
+    </div>
+    <div class="task-status">Status: {{task.status}}</div>
 
     <transition name="expand">
       <div v-if="expand" class="extra">
@@ -46,14 +48,17 @@ export default {
   }
 
   .task-title {
+    display: inline;
     font-weight: bold;
   }
 
   .task-date {
+    display: inline;
     float: right;
   }
 
   .task-status {
+    display: inline;
     margin-left: 5px;
   }
 

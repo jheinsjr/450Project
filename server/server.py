@@ -2,6 +2,7 @@ import requests
 import sys
 from flask import Flask
 from flask_restful import Api
+from database.session import db
 from api.login import Login, Logout, CreateAccount
 from api.tasks import TaskList
 
@@ -12,7 +13,9 @@ def launch(debug):
     else:
         app = Flask(__name__, static_folder='../client/dist', static_url_path='')
 
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.secret_key = b'\xc9\x82:\xf6\x9c\x993\x83\xa5\xa3e\xda\x9f\xb8\xf7\x86\xe0\xaeSd\x147K4'
+    db.init_app(app)
 
     api = Api(app)
     api.add_resource(Login, '/api/login')

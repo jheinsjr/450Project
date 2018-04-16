@@ -1,7 +1,7 @@
 from flask import session
 from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
-from database.session import get_db
+from database.session import db
 from database.tables import User
 
 
@@ -11,10 +11,9 @@ class Login(Resource):
     parser.add_argument("password", required=True, type=str)
 
     def post(self):
-        db = get_db()
         args = self.parser.parse_args()
 
-        user = db.query(User).\
+        user = User.query.\
             filter(User.name == args["username"]).\
             first()
 
@@ -41,7 +40,6 @@ class CreateAccount(Resource):
     parser.add_argument("password", required=True, type=str)
 
     def post(self):
-        db = get_db()
         args = self.parser.parse_args()
 
         try:
