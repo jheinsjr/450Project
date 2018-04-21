@@ -67,13 +67,13 @@ export default {
 
 
       if (validation.validateUsername(this.username)) {
-        errors.push('Username dosn\'t validate.')
+        errors.push('Username is invalid.')
       }
 
       if (validation.validatePassword(this.passwordA)) {
-        errors.push('Password dosn\'t validate.')
+        errors.push('Password is invalid.')
       } else if (this.passwordA !== this.passwordB) {
-        errors.push('Passwords must match')
+        errors.push('Passwords don\'t match')
       }
 
       return errors

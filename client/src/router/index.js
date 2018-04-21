@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import LoginPage from '../views/LoginPage'
 import LogoutPage from '../views/LogoutPage'
 import TaskPage from '../views/TaskPage'
-import TeamPage from '../views/TaskPage'
+import TeamPage from '../views/TeamPage'
 import CreateAccount from '../views/CreateAccountPage'
+import ArchivePage from '../views/ArchivePage'
 
 //Setting up are urls
 Vue.use(Router)
@@ -39,6 +40,11 @@ export default new Router({
       path: '/team',
       name: 'Team',
       component: TeamPage
+    },
+    {
+      path: '/archive',
+      name: 'Archive',
+      component: ArchivePage
     }
   ]
 })

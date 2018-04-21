@@ -1,16 +1,21 @@
 <template>
   <div class="task">
-    <div>
-      <div class="task-title" @click="$emit('selected')">{{task.title}}</div>
-      <div class="task-date">{{formatDate(task.creationDate)}}</div>
+    <div class="main-content">
+      <div>
+        <div class="title" @click="$emit('selected')">{{task.title}}</div>
+        <div class="date">{{formatDate(task.creationDate)}}</div>
+        <div class="author">Author: {{task.createdBy.name}}</div>
+      </div>
+      <div class="status">Status: {{task.status}}</div>
     </div>
-    <div class="task-status">Status: {{task.status}}</div>
 
     <transition name="expand">
-      <div v-if="expand" class="extra">
-        Esdfasdf
-        asdfasdf
-        asdfasdfasd
+      <div v-if="expand" class="expanded-content">
+        <div class="description">{{task.description}}</div>
+        <div class="controls">
+          <button class="join-task">Join Task</button>
+          <button v-if="showAdmin" @click="$parent.$emit('spawn-edit', task)" class="edit-task">Edit Task</button>
+        </div>
       </div>
     </transition>
   </div>
@@ -22,7 +27,8 @@ export default {
 
   props: [
     'task',
-    'expand'
+    'expand',
+    'showAdmin'
   ],
 
   methods: {
@@ -40,33 +46,52 @@ export default {
 
   .task {
     text-align: left;
-    padding: 5px;
   }
 
   .task:not(:last-child) {
     border-bottom: solid 1px @border-color;
   }
 
-  .task-title {
-    display: inline;
-    font-weight: bold;
+  .main-content {
+    margin: 10px;
   }
 
-  .task-date {
+  .title {
+    display: inline;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .author {
+    display: inline;
+    float: right;
+    margin-right: 20px;
+  }
+
+  .date {
     display: inline;
     float: right;
   }
 
-  .task-status {
+  .status {
     display: inline;
     margin-left: 5px;
   }
 
-  .extra {
-    height: 80px;
+  .description {
+    display: inline-block;
   }
 
-  /* always present */
+  .expanded-content {
+    height: 80px;
+    margin: 5px 10px 10px 10px;
+  }
+
+  .controls {
+
+  }
+
+  /* Animations */
   .expand-enter-active, .expand-leave-active {
     transition: all 0.3s ease;
     height: 80px;
@@ -76,6 +101,7 @@ export default {
   /* .expand-leave defines the ending state for leaving */
   .expand-enter, .expand-leave-to {
     height: 0;
+    margin: 0;
     opacity: 0;
   }
 </style>

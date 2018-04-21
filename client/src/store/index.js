@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     login: {
       username: '',
+      isAdmin: false,
       errorMsg: ''
     },
     tasks: {

@@ -11,7 +11,7 @@
 
     <div class="navbar-right">
       <div v-if="isLoggedIn" class="navbar-item"><router-link to="/logout">Logout</router-link></div>
-      <div v-else class="navbar-item"><router-link to="/login">Login</router-link></div>
+      <div v-else class="navbar-item" :class="{'navbar-active': $route.path === '/login'}"><router-link to="/login">Login</router-link></div>
     </div>
   </div>
 </template>
@@ -24,7 +24,9 @@ export default {
   data: function () {
     return {
       routes: [
-        {name: 'Tasks', to: '/tasks'}
+        {name: 'Tasks', to: '/tasks'},
+        {name: 'Team', to: '/team'},
+        {name: 'Archive', to: '/archive'}
       ]
     }
   },

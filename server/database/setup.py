@@ -4,9 +4,23 @@ from database.tables import *
 
 def init_db(app):
     with app.app_context():
+        db.drop_all()
         db.create_all()
 
+        execute_file(db.engine, "./sql_files/scheme.sql")
+
+        db.engine.execute("INSERT INTO TestUser (username, password) VALUES (?, ?)", "fred", "1234")
         # data
-        db.session.add(User(name="fred", password="1234"))
-        db.session.add(User(name="bob", password="4321"))
-        db.session.commit()
+        #db.session.add(User(name="fred", password="1234"))
+        #db.session.add(User(name="bob", password="4321"))
+        #db.session.commit()
+
+
+def execute_file(engine, sql_file):
+    with open(sql_file, 'r') as file,\
+            engine.connect() as connection:
+        cursor = connection.connection.cursor()
+        text = file.read()
+        cursor.executescript(text)
+        cursor.close()
+

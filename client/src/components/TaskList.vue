@@ -1,17 +1,23 @@
 <template>
   <div class="task-pane">
-    <div>Tasks</div>
-    Sort by:
-    <select title="sortBy" v-model="sortBy">
-      <option value="title">Name</option>
-      <option value="creationDate">Date</option>
-    </select>
+    <div class="pane-header"><h1>Tasks</h1></div>
+    <div class="control">
+      Filter:
+      <input type="text" v-model="filterBy">
+
+      Sort by:
+      <select title="sortBy" v-model="sortBy">
+        <option value="title">Name</option>
+        <option value="creationDate">Date</option>
+      </select>
+    </div>
 
     <div class="list-area">
       <task
         v-for="task in sortedList"
         :key="task.id"
         :task="task"
+        :show-admin="true"
         :expand="selectedId === task.id"
         @selected="setSelection(task.id)"
       />
@@ -29,6 +35,7 @@ export default {
   data () {
     return {
       sortBy: 'title',
+      filterBy: '',
       selectedId: -1
     }
   },
@@ -40,8 +47,13 @@ export default {
   },
 
   computed: {
+    filteredList () {
+      const fb = this.filterBy.toLowerCase()
+      return this.taskList.filter(t => t.title.toLowerCase().startsWith(fb))
+    },
+
     sortedList () {
-      let taskCopy = this.taskList.slice() // make a copy
+      let taskCopy = this.filteredList.slice() // make a copy
       taskCopy.sort(sorting.compareValues(this.sortBy))
       return taskCopy
     }
@@ -52,16 +64,25 @@ export default {
 <style lang="less" scoped>
   @import "../assets/styles.less";
 
-  .list-area {
+  .title {
+    padding: 10px;
+    font-size: 22pt;
+    border-bottom: 1px solid black;
+  }
 
+  .control {
+    margin: 20px;
+  }
+
+  .list-area {
+    height: 100%;
+    overflow-y: auto;
   }
 
   .task-pane {
     .pane;
     margin: auto;
     width: 80%;
-    height: 300px;
-    overflow-y: auto;
   }
 
 </style>
