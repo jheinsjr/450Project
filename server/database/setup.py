@@ -8,12 +8,13 @@ def init_db(app):
         db.create_all()
 
         execute_file(db.engine, "./sql_files/scheme.sql")
+        execute_file(db.engine, "./sql_files/insert1.sql")
 
-        db.engine.execute("INSERT INTO TestUser (username, password) VALUES (?, ?)", "fred", "1234")
+        # db.engine.execute("INSERT INTO Status(Description) VALUES (?)", "Not Started")
         # data
         #db.session.add(User(name="fred", password="1234"))
         #db.session.add(User(name="bob", password="4321"))
-        #db.session.commit()
+        db.session.commit()
 
 
 def execute_file(engine, sql_file):
