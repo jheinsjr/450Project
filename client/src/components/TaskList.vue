@@ -1,9 +1,12 @@
 <template>
-  <div class="task-pane">
-    <div class="pane-header"><h1>Tasks</h1></div>
+  <div id="task-pane">
+    <div id="pane-header">
+      <h1>Tasks</h1>
+      <button id="task-create-btn" class="btn primary" v-if="showTaskCreate" @click="$emit('spawn-create')">Create Task</button>
+    </div>
     <div class="control">
       Filter:
-      <input type="text" v-model="filterBy">
+      <input type="text" class="input" v-model="filterBy">
 
       Sort by:
       <select title="sortBy" v-model="sortBy">
@@ -12,7 +15,7 @@
       </select>
     </div>
 
-    <div class="list-area">
+    <div id="list-area">
       <task
         v-for="task in sortedList"
         :key="task.id"
@@ -30,7 +33,10 @@ import sorting from '../util/sorting'
 
 export default {
   name: 'TaskList',
-  props: ['taskList'],
+  props: [
+    'taskList',
+    'showTaskCreate'
+  ],
 
   data () {
     return {
@@ -64,25 +70,32 @@ export default {
 <style lang="less" scoped>
   @import "../assets/styles.less";
 
-  .title {
-    padding: 10px;
-    font-size: 22pt;
-    border-bottom: 1px solid black;
+  h1 {
+    margin: 10px;
+  }
+
+  #pane-header {
+    position: relative;
+  }
+
+  #task-pane {
+    .pane;
+    margin: auto;
+    width: 80%;
+  }
+
+  #task-create-btn {
+    position: absolute;
+    top: 0;
+    right: 7px;
   }
 
   .control {
     margin: 20px;
   }
 
-  .list-area {
+  #list-area {
     height: 100%;
     overflow-y: auto;
   }
-
-  .task-pane {
-    .pane;
-    margin: auto;
-    width: 80%;
-  }
-
 </style>

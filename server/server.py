@@ -9,7 +9,7 @@ import api.login # must keep
 
 
 def launch(mode):
-    if mode == "debug":
+    if mode != 'production':
         app = Flask(__name__)
     else:
         app = Flask(__name__, static_folder='../client/dist', static_url_path='')
@@ -43,5 +43,5 @@ if __name__ == '__main__':
         m = sys.argv[1]
     else:
         m = 'debug'
-
+    
     launch(m)

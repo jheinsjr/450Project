@@ -19,7 +19,7 @@
       </div>
 
       <div>
-        <button @click="create_account()" class="btn">Create Account</button>
+        <button @click="create_account()" class="btn primary">Create Account</button>
       </div>
 
       <div>
@@ -86,20 +86,9 @@ export default {
   @import "../assets/styles.less";
 
   .account-pane {
-    margin: 150px auto auto auto;
+    margin: 100px auto auto auto;
     padding-bottom: 25px;
     width: 450px;
   }
 
-  .input-grid {
-    display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 1fr 250px;
-    align-items: center;
-    padding: 20px 20px 5px 20px;
-  }
-
-  .input-grid label {
-    text-align: right;
-  }
 </style>

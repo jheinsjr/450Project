@@ -1,3 +1,4 @@
+
 from database.session import db
 from database.tables import *
 
@@ -24,4 +25,5 @@ def execute_file(engine, sql_file):
         text = file.read()
         cursor.executescript(text)
         cursor.close()
+
 

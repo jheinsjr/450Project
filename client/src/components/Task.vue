@@ -3,7 +3,7 @@
     <div class="main-content">
       <div>
         <div class="title" @click="$emit('selected')">{{task.title}}</div>
-        <div class="date">{{formatDate(task.creationDate)}}</div>
+        <div class="date">Created On: {{formatDate(task.creationDate)}}</div>
         <div class="author">Author: {{task.createdBy.name}}</div>
       </div>
       <div class="status">Status: {{task.status}}</div>

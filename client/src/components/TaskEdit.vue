@@ -5,15 +5,15 @@
     </div>
     <div class="pane-header"><h3>{{paneTitle}}</h3></div>
 
-    <div id="input-grid">
+    <div class="input-grid">
       <label for="title" id="title-label">Title:</label>
       <input id="title" v-model="task.title" class="input" type="text">
 
       <label for="description" id="description-label">Description:</label>
       <textarea id="description" v-model="task.description" class="input"></textarea>
-
-      <button id="save-btn" class="btn" @click="$emit('submit-edit', task)">Save</button>
     </div>
+    <button id="cancel-btn" class="btn danger" @click="$emit('cancel-edit')">Cancel</button>
+    <button id="save-btn" class="btn success" @click="$emit('submit-edit', task)">Save</button>
   </div>
 </template>
 
@@ -34,11 +34,16 @@ export default {
     display: grid;
   }
 
+  #save-btn {
+    float: left;
+  }
+
   .edit-pane {
     .pane;
     margin-top: 150px;
     margin-left: auto;
     margin-right: auto;
+
     width: 500px;
     height: 300px;
   }
