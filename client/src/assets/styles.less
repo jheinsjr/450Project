@@ -1,23 +1,30 @@
+@import "normalize";
 
 // Thought i'd define some of our application colors as variables so we can tweak the color scheme more easily
 @background-color: #e9e9e9;
 
 @color-dark: #0B0C10;
 @color-light: rgb(255, 255, 255);
+
 @color-primary: rgb(0, 120, 231);
-@color-primary-dark: rgb(0, 66, 131);
+@color-primary-active: rgb(0, 66, 131);
+
+@color-secondary: rgb(108, 117, 125);
+@color-secondary-active: rgb(68, 69, 75);
+
+@color-danger: rgb(220, 53, 69);
+@color-danger-active: rgb(131, 27, 40);
+
+@color-success: rgb(40, 167, 69);
+@color-success-active: rgb(34, 125, 57);
+
+@input-border: #ccc;
+@input-border-focus: #129FEA;
 
 body {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
   text-align: center;
-  margin: 0;
   background-color: @background-color;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
 }
 
 .pane {
@@ -29,13 +36,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .pane-header {
   border-bottom: 1px solid lightgrey;
-  padding: 10px;
 }
 
 .input {
   padding: 0.5em 0.6em;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid @input-border;
   box-shadow: inset 0 1px 3px #ddd;
   border-radius: 4px;
   vertical-align: middle;
@@ -44,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .input:focus {
   outline: 0;
-  border-color: #129FEA;
+  border-color: @input-border-focus;
 }
 
 .btn {
@@ -55,16 +61,58 @@ h1, h2, h3, h4, h5, h6 {
   outline: 0;
 
   color: #fff;
-  background: @color-primary linear-gradient(transparent, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.10));
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.05) 40%, rgba(0, 0, 0, 0.10));
 }
 
 .btn:active {
   box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
   border-color: #000;
-  background-color: @color-primary-dark;
+}
+
+.btn.primary {
+  background-color: @color-primary;
+}
+
+.btn.primary:active {
+  background-color: @color-primary-active;
+}
+
+.btn.secondary {
+  background-color: @color-secondary;
+}
+
+.btn.secondary:active {
+  background-color: @color-secondary-active;
+}
+
+.btn.success {
+  background-color: @color-success;
+}
+
+.btn.success:active {
+  background-color: @color-success-active;
+}
+
+.btn.danger {
+  background-color: @color-danger;
+}
+
+.btn.danger:active {
+  background-color: @color-danger-active;
 }
 
 .error {
-  color: red;
+  color: @color-danger;
 }
 
+.input-grid {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 230px;
+  align-items: center;
+  padding: 20px 20px 5px 20px;
+}
+
+.input-grid label {
+  text-align: right;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div id="navbar">
     <div class="navbar-left">
     <div v-for="route in routes"
          class="navbar-item"
@@ -41,7 +41,7 @@ export default {
 @import "../assets/styles.less";
 
 /* navbar */
-.navbar {
+#navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -49,6 +49,7 @@ export default {
   overflow: hidden;
   background-color: @color-dark;
 
+  font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.35);
 }
 
@@ -70,6 +71,7 @@ export default {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font-size: 14pt;
 }
 
 .navbar-item a:hover {

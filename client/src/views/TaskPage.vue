@@ -4,45 +4,67 @@
   -->
 
   <div id="task-page">
-    <task-list :task-list="taskList" @spawn-edit="spawnEdit" />
+    <task-list
+      :task-list="taskList"
+      :show-task-create="true"
+      @spawn-edit="spawnEdit"
+      @spawn-create="spawnCreate" />
     <!--<button class="btn" @click="updateTasks()">Update</button>-->
     <transition name="fade">
       <div class="edit-overlay" v-if="editing !== null">
-        <task-edit @submit-edit="submitEdit" @cancel-edit="cancelEdit" :task="editing" pane-title="Task Edit"/>
+        <task-edit
+          @submit-edit="submitEdit"
+          @cancel-edit="cancelEdit"
+          :task="editing" pane-title="Task Edit"/>
       </div>
     </transition>
   </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
-import dummy_data from '../util/dummy_tasks'
+import {mapGetters} from 'vuex'
+import Task from '../util/task'
+//import dummy_data from '../util/dummy_tasks'
 
 export default {
   name: 'task-page',
   data () {
     return {
-      taskList: dummy_data,
-      editing: null
+      taskList: [],
+      editing: null,
+      isLoading: false
     }
   },
 
   methods: {
-    ...mapActions({
-      updateTasks: 'UPDATE_TASKS'
-    }),
 
     spawnEdit (task) {
       this.editing = task.clone()
     },
 
-    submitEdit(task) {
-      alert(`Submitting task: ${task.id}`)
+    spawnCreate () {
+      this.editing = new Task()
+    },
+
+    async submitEdit(task) {
       this.editing = null
+
+      this.isLoading = true
+      await this.axios.post('task', {'task': task})
+      await this.updateTasks()
+      this.isLoading = false
     },
 
     cancelEdit () {
       this.editing = null
+    },
+
+    async updateTasks () {
+      const response = await this.axios.get('tasks')
+
+      if (response.data.status === 'success') {
+        this.taskList = response.data.tasks.map(x => new Task(x))
+      }
     }
   },
 
@@ -51,11 +73,11 @@ export default {
   },
 
   created () {
-    if (this.isLoggedIn) {
+    //if (this.isLoggedIn) {
       this.updateTasks()
-    } else {
+    //} else {
       // this.$router.push('/login')
-    }
+    //}
   }
 }
 </script>

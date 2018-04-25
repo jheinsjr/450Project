@@ -21,7 +21,7 @@
         @keyup.enter="login">
     </div>
     <div>
-      <button class="btn" @click="login">login</button>
+      <button class="btn primary" @click="login">login</button>
     </div>
     <div>
       <router-link to="/create_account">Don't have an account?</router-link>
@@ -69,20 +69,8 @@ export default {
 <style lang="less" scoped>
 .login-pane {
   margin: 100px auto auto auto;
-  width: min-content;
+  width: 350px;
   padding-bottom: 20px;
-}
-
-.input-grid {
-  display: grid;
-  grid-gap: 5px;
-  grid-template-columns: 1fr 250px;
-  align-items: center;
-  padding: 20px 20px 5px 20px;
-}
-
-.input-grid label {
-  text-align: right;
 }
 
 .error {
