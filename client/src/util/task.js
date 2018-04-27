@@ -1,4 +1,4 @@
-const DEFAULT_STATUS = 'DEFAULT_STATUS'
+const DEFAULT_STATUS = 1
 
 
 export default class Task {

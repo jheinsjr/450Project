@@ -1,4 +1,7 @@
-<<<<<<< HEAD
+PRAGMA foreign_keys = ON;
+
+DROP TRIGGER IF EXISTS employee_task_relation;
+
 DROP TABLE IF EXISTS Employee;
 DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS Employee_Task;
@@ -71,12 +74,3 @@ CREATE TRIGGER employee_task_relation AFTER INSERT ON Task_Event
         Set Update_DT = date('now')
         WHERE Task.Task_ID = new.Task_ID;
     END;
-
-=======
-DROP TABLE TestUser;
-
-CREATE TABLE TestUser (
-  username TEXT PRIMARY KEY,
-  password TEXT
-);
->>>>>>> f0cdde87b09362b6d21b1f0b19eb66204dc1f026

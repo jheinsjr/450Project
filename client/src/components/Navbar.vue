@@ -49,7 +49,6 @@ export default {
   overflow: hidden;
   background-color: @color-dark;
 
-  font-family: "Lucida Sans Typewriter", "Lucida Console", Monaco, "Bitstream Vera Sans Mono", monospace;
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.35);
 }
 

@@ -1,58 +1,51 @@
 from database.session import rest_api
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, fields, marshal
 from database.session import db
-from database.tables import User
+from sqlalchemy.exc import SQLAlchemyError
 
-dummy_data = [
-    {
-        'id': 0,
-        'title': 'Finish UI Planing Doc',
-        'description': 'To give the other developers a clear idea of what their doing.',
-        'status': 'not-started',
-        'creationDate': '2018-06-01',
-        'updatedDate': None,
-        'createdBy': {'id': 0, 'name': 'fred'},
-        'updatedBy': None
-    },
-    {
-        'id': 1,
-        'title': 'Polish Css',
-        'description': 'You know this drill.',
-        'status': 'started',
-        'creationDate': '2018-01-02',
-        'updatedDate': None,
-        'createdBy': {'id': 1, 'name': 'bob'},
-        'updatedBy': None
-    },
-    {
-        'id': 2,
-        'title': 'Design Database Tables',
-        'description': 'You know this drill.',
-        'status': 'not-started',
-        'creationDate': '2018-08-01',
-        'updatedDate': None,
-        'createdBy': {'id': 0, 'name': 'fred'},
-        'updatedBy': None
-    }
-]
+_task_fields = {
+    'id': fields.Integer(attribute='Task_ID'),
+    'title': fields.String(attribute='Title'),
+    'description': fields.String(attribute='Description'),
+    'status': fields.Integer(attribute='Status_ID'),
+    'creationDate': fields.String(attribute='Creation_TS'),
+    'updatedDate': fields.String(attribute='Update_DT'),
+    'createdBy': {'id': fields.Integer(attribute='Created_by'), 'name': fields.String(attribute='First_Name')}
+}
 
 
 def push_change(task):
-    if task['id'] == -1:
-        task['id'] = len(dummy_data)
-    else:
-        for i, t in enumerate(dummy_data):
-            if t['id'] == task['id']:
-                dummy_data[i] = task
-                return
 
-    dummy_data.append(task)
+    if task['id'] == -1:
+        db.engine.execute("""
+        INSERT INTO Task
+        (Title, Description, Status_ID, Creation_TS, Update_DT, Created_by)
+        VALUES
+        (?, ?, ?, ?, ?, ?)
+        """, task['title'], task['description'], task['status'], task['creationDate'], task['updatedDate'], task['createdBy']['id'])
+    else:
+        try:
+            db.engine.execute("""
+            REPLACE INTO Task
+            (Task_ID, Title, Description, Status_ID, Creation_TS, Created_by)
+            VALUES
+            (?, ?, ?, ?, ?, ?)
+            """, task['id'], task['title'], task['description'], 1, '2018-04-27 16:03:01', 1)
+        except SQLAlchemyError:
+            print("Error")
 
 
 # The whole task list
 class TaskList(Resource):
+    query = db.text("""
+    SELECT * FROM Task JOIN Employee E on Task.Created_by = E.Employee_ID
+    """)
+
     def get(self):
-        return {"status": "success", "tasks": dummy_data}
+        task_list = db.engine.execute(self.query).fetchall()
+        task_marshal = marshal(task_list, _task_fields)
+
+        return {"status": "success", "tasks": task_marshal}
 
 
 # An individual task

@@ -2,7 +2,6 @@ from flask import session
 from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
 from database.session import db, rest_api
-from database.tables import User
 
 
 class Login(Resource):
@@ -13,12 +12,12 @@ class Login(Resource):
     def post(self):
         args = self.parser.parse_args()
 
-        user = db.engine.execute("SELECT * FROM users where name = ?", args.username).first()
+        user = db.engine.execute("SELECT * FROM Employee where Username = ?", args.username).first()
         # user = User.query.\
         #    filter(User.name == args["username"]).\
         #    first()
 
-        if user is not None and args.password == user.password:
+        if user is not None and args.Password == user.password:
             session.user = user.name
             return {"status": "success"}
         else:
@@ -43,8 +42,10 @@ class CreateAccount(Resource):
     def post(self):
         args = self.parser.parse_args()
         try:
-            db.add(User(name=args.username, password=args.password))
-            db.commit()
+            #db.add(User(name=args.username, password=args.password))
+            #db.commit()
+            db.engine.execute("INSERT INTO Employee (First_Name, Last_Name, Admin, Username, Password) VALUES"
+                              "('PLACEHOLDER', 'PLACEHOLDER', 0, ?, ?)", args.username, args.password)
             return {"status": "success"}
         except SQLAlchemyError:
             db.rollback()
