@@ -17,8 +17,8 @@ class Login(Resource):
         #    filter(User.name == args["username"]).\
         #    first()
 
-        if user is not None and args.Password == user.password:
-            session.user = user.name
+        if user is not None and args.password == user.Password:
+            session.user = user.Username
             return {"status": "success"}
         else:
             return {"status": "failed"}

@@ -30,12 +30,8 @@ export default {
 <style lang="less" scoped>
   @import "../assets/styles.less";
 
-  #input-grid {
-    display: grid;
-  }
-
   #save-btn {
-    float: left;
+
   }
 
   .edit-pane {

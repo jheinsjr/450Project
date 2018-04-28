@@ -70,7 +70,7 @@ export default {
 .login-pane {
   margin: 100px auto auto auto;
   width: 350px;
-  padding-bottom: 20px;
+  padding: 0 20px 20px 0;
 }
 
 .error {

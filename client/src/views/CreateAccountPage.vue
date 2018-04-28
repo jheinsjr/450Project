@@ -8,8 +8,8 @@
       </div>
 
       <div class="input-grid">
-        <label for="name">Account Name: </label>
-        <input v-model="username" type="text" id="name" class="input">
+        <label for="username">Account Name: </label>
+        <input v-model="username" type="text" id="username" class="input">
 
         <label for="password">Password</label>
         <input v-model="passwordA" type="password" id="password" class="input">
@@ -52,6 +52,7 @@ export default {
       this.errorList = this.validate()
 
       if (this.errorList.length === 0) {
+        try {
           const { data } = await this.axios.post('create_account', { 'username': this.username, 'password': this.passwordA})
 
           if (data.status === 'success') {
@@ -59,6 +60,9 @@ export default {
           } else {
             this.errorList = [data.message]
           }
+        } catch (e) {
+          alert("Error connecting to server.")
+        }
       }
     },
 

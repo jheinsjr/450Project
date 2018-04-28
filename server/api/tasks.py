@@ -15,24 +15,19 @@ _task_fields = {
 
 
 def push_change(task):
-
     if task['id'] == -1:
         db.engine.execute("""
         INSERT INTO Task
-        (Title, Description, Status_ID, Creation_TS, Update_DT, Created_by)
+        (Title, Description, Status_ID, Creation_TS, Created_by)
         VALUES
-        (?, ?, ?, ?, ?, ?)
-        """, task['title'], task['description'], task['status'], task['creationDate'], task['updatedDate'], task['createdBy']['id'])
+        (:title, :description, 1, '2018-04-27 16:03:01', 1)
+        """, task)
     else:
-        try:
-            db.engine.execute("""
-            REPLACE INTO Task
-            (Task_ID, Title, Description, Status_ID, Creation_TS, Created_by)
-            VALUES
-            (?, ?, ?, ?, ?, ?)
-            """, task['id'], task['title'], task['description'], 1, '2018-04-27 16:03:01', 1)
-        except SQLAlchemyError:
-            print("Error")
+        db.engine.execute("""
+        UPDATE Task SET
+        Title = :title, Description = :description
+        WHERE Task_ID = :id
+        """, task)
 
 
 # The whole task list
