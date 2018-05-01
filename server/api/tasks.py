@@ -35,7 +35,7 @@ def push_change(task):
 class TaskList(Resource):
     query = db.text("""
     SELECT Task_ID, Title, Task.Description, S.Description as Status, Creation_TS, Update_DT, E.Employee_ID,
-    E.First_Name + ' ' + E.Last_Name as Full_Name
+    E.First_Name as Full_Name
     FROM Task
     JOIN Employee E on Task.Created_by = E.Employee_ID
     JOIN Status S on Task.Status_ID = S.Status_ID

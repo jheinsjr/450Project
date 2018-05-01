@@ -1,15 +1,14 @@
 export default {
-  compareValues(key, order = 'asc') {
+  compareValues(keyGet, order = 'asc') {
     return function (a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-        // property doesn't exist on either object
-        return 0;
-      }
 
-      const varA = (typeof a[key] === 'string') ?
-        a[key].toUpperCase() : a[key]
-      const varB = (typeof b[key] === 'string') ?
-        b[key].toUpperCase() : b[key]
+      const aKey = keyGet(a)
+      const bKey = keyGet(b)
+
+      const varA = (typeof aKey === 'string') ?
+        aKey.toUpperCase() : aKey
+      const varB = (typeof bKey === 'string') ?
+        bKey.toUpperCase() : bKey
 
       let comparison = 0
       if (varA > varB) {

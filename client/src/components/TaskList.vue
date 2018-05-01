@@ -12,9 +12,9 @@
 
       Sort by:
       <select title="sortBy" v-model="sortBy">
-        <option value="title">Name</option>
-        <option value="creationDate">Date</option>
-        <option value="createdBy.name">Author</option>
+        <option :value="x => x.title">Name</option>
+        <option :value="x => x.creationDate">Date</option>
+        <option :value="x => x.createdBy.name">Author</option>
       </select>
     </div>
 
