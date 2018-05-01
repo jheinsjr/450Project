@@ -10,6 +10,7 @@
     </div>
 
     <div class="navbar-right">
+      <div v-if="isLoggedIn" id="ur-name" class="navbar-item">Welcome: {{this.$store.state.login.username}}</div>
       <div v-if="isLoggedIn" class="navbar-item"><router-link to="/logout">Logout</router-link></div>
       <div v-else class="navbar-item" :class="{'navbar-active': $route.path === '/login'}"><router-link to="/login">Login</router-link></div>
     </div>
@@ -23,7 +24,7 @@ export default {
   name: 'navbar',
   data: function () {
     return {
-      routes: [
+      loggedInRoutes: [
         {name: 'Tasks', to: '/tasks'},
         {name: 'Team', to: '/team'},
         {name: 'Archive', to: '/archive'}
@@ -32,7 +33,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn']),
+
+    routes() {
+      if (this.isLoggedIn) {
+        return this.loggedInRoutes
+      } else {
+        return []
+      }
+    }
   }
 }
 </script>
@@ -50,6 +59,15 @@ export default {
   background-color: @color-dark;
 
   box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.35);
+}
+
+#ur-name {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 14pt;
 }
 
 .navbar-left {

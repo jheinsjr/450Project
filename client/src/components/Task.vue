@@ -13,8 +13,9 @@
       <div v-if="expand" class="expanded-content">
         <div class="description">{{task.description}}</div>
         <div class="controls">
-          <button class="join-task">Join Task</button>
-          <button v-if="showAdmin" @click="$parent.$emit('spawn-edit', task)" class="edit-task">Edit Task</button>
+          <button class="btn success join-task" @click="setStatus">Join Task</button>
+          <button v-if="showAdmin" @click="$parent.$emit('spawn-edit', task)" class="btn primary edit-task">Edit Task</button>
+          <button v-if="showAdmin" class="btn danger" @click="removeTask">Delete</button>
         </div>
       </div>
     </transition>
@@ -34,6 +35,16 @@ export default {
   methods: {
     formatDate (date) {
       return date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear()
+    },
+
+    async removeTask () {
+      await this.axios.delete(`task/${this.task.id}`)
+      this.$emit("refresh")
+    },
+
+    async setStatus () {
+      await this.axios.post(`status/${this.task.id}`, {'status_id': 2})
+      this.$emit("refresh")
     }
   }
 }

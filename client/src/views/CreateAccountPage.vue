@@ -8,14 +8,20 @@
       </div>
 
       <div class="input-grid">
+        <label for="firstName">First Name: </label>
+        <input v-model="firstName" type="text" id="firstName" class="input" :class="{ error: errors.firstName }">
+
+        <label for="lastName">Last Name: </label>
+        <input v-model="lastName" type="text" id="lastName" class="input" :class="{ error: errors.lastName }">
+
         <label for="username">Account Name: </label>
-        <input v-model="username" type="text" id="username" class="input">
+        <input v-model="username" type="text" id="username" class="input" :class="{ error: errors.username }">
 
         <label for="password">Password</label>
-        <input v-model="passwordA" type="password" id="password" class="input">
+        <input v-model="passwordA" type="password" id="password" class="input" :class="{ error: errors.passwordA }">
 
         <label for="passwordConfirm">Retype Password</label>
-        <input v-model="passwordB" type="password" id="passwordConfirm" class="input">
+        <input v-model="passwordB" type="password" id="passwordConfirm" class="input" :class="{ error: errors.passwordB }">
       </div>
 
       <div>
@@ -40,10 +46,12 @@ export default {
 
   data: function () {
     return {
+      firstName: '',
+      lastName: '',
       username: '',
       passwordA: '',
       passwordB: '',
-      errorList: []
+      errors: {}
     }
   },
 
@@ -53,7 +61,13 @@ export default {
 
       if (this.errorList.length === 0) {
         try {
-          const { data } = await this.axios.post('create_account', { 'username': this.username, 'password': this.passwordA})
+          const { data } = await this.axios.post('create_account',
+            {
+              'firstName': this.firstName,
+              'lastName': this.lastName,
+              'username': this.username,
+              'password': this.passwordA
+            })
 
           if (data.status === 'success') {
             this.$router.push('/login')

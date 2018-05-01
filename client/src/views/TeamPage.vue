@@ -9,6 +9,8 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
     name: "TeamPage",
 
@@ -16,6 +18,16 @@
       return {
         team: ['One', 'Two', 'Three']
       }
+    },
+
+    created () {
+      if (!this.isLoggedIn) {
+        this.router.push('/welcome')
+      }
+    },
+
+    computed: {
+      ...mapGetters(['isLoggedIn'])
     }
   }
 </script>

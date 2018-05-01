@@ -8,7 +8,9 @@
       :task-list="taskList"
       :show-task-create="true"
       @spawn-edit="spawnEdit"
-      @spawn-create="spawnCreate" />
+      @spawn-create="spawnCreate"
+      @refresh="updateTasks"
+    />
     <!--<button class="btn" @click="updateTasks()">Update</button>-->
     <transition name="fade">
       <div class="edit-overlay" v-if="editing !== null">
@@ -50,7 +52,7 @@ export default {
       this.editing = null
 
       this.isLoading = true
-      await this.axios.post('task', {'task': task})
+      await this.axios.post(`task`, {'task': task})
       await this.updateTasks()
       this.isLoading = false
     },
@@ -73,11 +75,11 @@ export default {
   },
 
   created () {
-    //if (this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.updateTasks()
-    //} else {
-      // this.$router.push('/login')
-    //}
+    } else {
+      this.$router.push('/welcome')
+    }
   }
 }
 </script>

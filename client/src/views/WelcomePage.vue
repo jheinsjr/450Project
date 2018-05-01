@@ -4,7 +4,10 @@
   Maybe just a link to the login and the name of the project.
   -->
 
-  <div></div>
+  <div id="welcome">
+    <div>Welcome to BRADMAN.</div>
+    <div>Please login to get started</div>
+  </div>
 </template>
 
 <script>
@@ -13,6 +16,8 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+  #welcome {
+    margin-top: 300px;
+  }
 </style>

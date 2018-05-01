@@ -2,7 +2,9 @@
   <div id="task-pane">
     <div id="pane-header">
       <h1>Tasks</h1>
-      <button id="task-create-btn" class="btn primary" v-if="showTaskCreate" @click="$emit('spawn-create')">Create Task</button>
+      <button id="task-create-btn" class="btn primary" v-if="showTaskCreate"
+              @click="$emit('spawn-create')"
+      >Create Task</button>
     </div>
     <div class="control">
       Filter:
@@ -12,6 +14,7 @@
       <select title="sortBy" v-model="sortBy">
         <option value="title">Name</option>
         <option value="creationDate">Date</option>
+        <option value="createdBy.name">Author</option>
       </select>
     </div>
 
@@ -23,6 +26,7 @@
         :show-admin="true"
         :expand="selectedId === task.id"
         @selected="setSelection(task.id)"
+        @refresh="$emit('refresh')"
       />
     </div>
   </div>

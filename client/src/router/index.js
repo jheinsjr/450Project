@@ -6,6 +6,7 @@ import TaskPage from '../views/TaskPage'
 import TeamPage from '../views/TeamPage'
 import CreateAccount from '../views/CreateAccountPage'
 import ArchivePage from '../views/ArchivePage'
+import WelcomePage from '../views/WelcomePage'
 
 //Setting up are urls
 Vue.use(Router)
@@ -45,6 +46,11 @@ export default new Router({
       path: '/archive',
       name: 'Archive',
       component: ArchivePage
+    },
+    {
+      path: '/welcome',
+      name: 'Welcome',
+      component: WelcomePage
     }
   ]
 })
