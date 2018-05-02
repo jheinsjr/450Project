@@ -24,11 +24,11 @@ VALUES ("Jack", "Tompkins", 0, "xx_noscopeKing_xx", "hunter2");
 
 /*TASKS*/
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
-VALUES ("Do the thing!", "Lorem ipsum dolor sit amet.", 1, CURRENT_TIMESTAMP, 1);
+VALUES ("Do the thing!", "Lorem ipsum dolor sit amet.", 2, CURRENT_TIMESTAMP, 1);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
 VALUES ("Call James", "Better not forget", 1, CURRENT_TIMESTAMP, 1);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
-VALUES ("Install slite3", "On all them computers", 1, CURRENT_TIMESTAMP, 4);
+VALUES ("Install slite3", "On all them computers", 3, CURRENT_TIMESTAMP, 4);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
 VALUES ("Refactor database code", "Gotta turn the mysql to sqlite, know what I mean?", 1, CURRENT_TIMESTAMP, 3);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
@@ -36,9 +36,9 @@ VALUES ("Statistical analysis for Client X", "- check data for innacuracies\n - 
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
 VALUES ("Acquire Pizza", "Preferably without anchovies", 1, CURRENT_TIMESTAMP, 1);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
-VALUES ("Call Grandma", "Strictly Business", 1, CURRENT_TIMESTAMP, 4);
+VALUES ("Call Grandma", "Strictly Business", 3, CURRENT_TIMESTAMP, 4);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
-VALUES ("Determine pronunciation of '.gif'", "It's pronounced 'gif'!", 1, CURRENT_TIMESTAMP, 3);
+VALUES ("Determine pronunciation of '.gif'", "It's pronounced 'gif'!", 2, CURRENT_TIMESTAMP, 3);
 INSERT INTO Task (Title, Description, Status_ID, Creation_TS, Created_by)
 VALUES ("Write sample data for testing", "Very important, please complete asap", 1, CURRENT_TIMESTAMP, 4);
 
