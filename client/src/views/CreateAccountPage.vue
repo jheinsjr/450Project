@@ -32,7 +32,7 @@
         <router-link to="/login">Already have an account?</router-link>
       </div>
 
-      <div v-for="error in errorList" :key="error" class="error">{{error}}</div>
+      <div v-for="error in errors.messages" :key="error" class="error">{{error}}</div>
 
     </div>
   </div>
@@ -51,15 +51,15 @@ export default {
       username: '',
       passwordA: '',
       passwordB: '',
-      errors: {}
+      errors: {messages: [], stop: true}
     }
   },
 
   methods: {
     async create_account () {
-      this.errorList = this.validate()
+      this.errors = this.validate()
 
-      if (this.errorList.length === 0) {
+      if (!this.errors.stop) {
         try {
           const { data } = await this.axios.post('create_account',
             {
@@ -72,7 +72,7 @@ export default {
           if (data.status === 'success') {
             this.$router.push('/login')
           } else {
-            this.errorList = [data.message]
+            this.errors = { messages: data.message, stop: false }
           }
         } catch (e) {
           alert("Error connecting to server.")
@@ -81,17 +81,29 @@ export default {
     },
 
     validate () {
-      let errors = []
+      let errors = { messages: [], stop: false }
 
+      if (validation.validateEmpty(this.firstName)) {
+        errors.firstName = true
+        errors.stop = true
+      }
+
+      if (validation.validateEmpty(this.lastName)) {
+        errors.lastName = true
+        errors.stop = true
+      }
 
       if (validation.validateUsername(this.username)) {
-        errors.push('Username is invalid.')
+        errors.username = true
+        errors.stop = true
       }
 
       if (validation.validatePassword(this.passwordA)) {
-        errors.push('Password is invalid.')
+        errors.passwordA = true
+        errors.stop = true
       } else if (this.passwordA !== this.passwordB) {
-        errors.push('Passwords don\'t match')
+        errors.passwordB = true
+        errors.stop = true
       }
 
       return errors

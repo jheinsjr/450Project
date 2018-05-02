@@ -2,7 +2,7 @@
   <div id="task-pane">
     <div id="pane-header">
       <h1>Tasks</h1>
-      <button id="task-create-btn" class="btn primary" v-if="showTaskCreate"
+      <button id="task-create-btn" class="btn primary" v-if="controls && $store.state.login.isAdmin"
               @click="$emit('spawn-create')"
       >Create Task</button>
     </div>
@@ -15,6 +15,7 @@
         <option value="name">Name</option>
         <option value="date">Date</option>
         <option value="author">Author</option>
+        <option value="status">Status</option>
       </select>
 
       Order:
@@ -31,6 +32,7 @@
         :task="task"
         :show-admin="$store.state.login.isAdmin"
         :expand="selectedId === task.id"
+        :controls="controls"
         @selected="setSelection(task.id)"
         @refresh="$emit('refresh')"
       />
@@ -44,14 +46,16 @@ import sorting from '../util/sorting'
 const sortingFunctions = {
   'name': x => x.title,
   'date': x => x.creationDate,
-  'author': x => x.createdBy.name
+  'author': x => x.createdBy.name,
+  'status': x => x.status
 };
 
 export default {
   name: 'TaskList',
   props: [
     'taskList',
-    'showTaskCreate'
+    'controls',
+    'archive'
   ],
 
   data () {
@@ -72,7 +76,10 @@ export default {
   computed: {
     filteredList () {
       const fb = this.filterBy.toLowerCase()
-      return this.taskList.filter(t => t.title.toLowerCase().startsWith(fb))
+      return this.taskList.filter(t =>
+        t.title.toLowerCase().startsWith(fb) &&
+        this.archive === (t.status === 'Completed')
+      )
     },
 
     sortedList () {

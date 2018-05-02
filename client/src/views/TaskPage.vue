@@ -6,7 +6,8 @@
   <div id="task-page">
     <task-list
       :task-list="taskList"
-      :show-task-create="true"
+      :controls="true"
+      :archive="false"
       @spawn-edit="spawnEdit"
       @spawn-create="spawnCreate"
       @refresh="updateTasks"

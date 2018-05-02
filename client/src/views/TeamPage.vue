@@ -1,9 +1,22 @@
 <template>
   <div id="team-page">
     <div id="team-pane" class="pane">
-      <div id="team-list" v-for="t in team" :key="t.id">
-        <div>{{t.name}}</div>
+      <div class="pane-header">
+        <h2>Team</h2>
       </div>
+
+      <table id="team-list">
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Admin</th>
+        </tr>
+        <tr v-for="t in team" :key="t.id">
+          <td>{{t.name}}</td>
+          <td>{{t.username}}</td>
+          <td><font-awesome-icon :icon="iconFor(t.admin)" /></td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
@@ -33,6 +46,13 @@
         } catch (err) {
           alert('Server Error.')
         }
+      },
+
+      iconFor (adminId) {
+        if (adminId === '0'){
+          return ['far', 'square']
+        }
+        return ['far', 'check-square']
       }
     },
 
@@ -55,6 +75,15 @@
 
   #team-pane {
     margin: 150px auto auto auto;
-    width: 300px;
+    width: 600px;
+  }
+
+  #team-list {
+    text-align: left;
+    margin: 5px;
+  }
+
+  th, td {
+    padding: 5px;
   }
 </style>

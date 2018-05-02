@@ -6,13 +6,17 @@
         <div class="date">Created On: {{formatDate(task.creationDate)}}</div>
         <div class="author">Author: {{task.createdBy.name}}</div>
       </div>
-      <div class="status">Status: {{task.status}}</div>
+      <div class="status">
+        Status:
+        <font-awesome-icon :icon="icon" />
+        {{task.status}}
+      </div>
     </div>
 
     <transition name="expand">
       <div v-if="expand" class="expanded-content">
         <div class="description">{{task.description}}</div>
-        <div class="controls">
+        <div v-if="controls" class="controls">
           <button class="btn success join-task" @click="setStatus">Join Task</button>
           <button v-if="showAdmin" @click="$parent.$emit('spawn-edit', task)" class="btn primary edit-task">Edit Task</button>
           <button v-if="showAdmin" class="btn danger" @click="removeTask">Delete</button>
@@ -23,13 +27,20 @@
 </template>
 
 <script>
+const icons = {
+  'Not Started': ['far', 'square'],
+  'Started': ['far', 'check-square'],
+  'Completed': ['far', 'check-square']
+};
+
 export default {
   name: 'task',
 
   props: [
     'task',
     'expand',
-    'showAdmin'
+    'showAdmin',
+    'controls'
   ],
 
   methods: {
@@ -45,6 +56,12 @@ export default {
     async setStatus () {
       await this.axios.post(`status/${this.task.id}`, {'status_id': 2})
       this.$emit("refresh")
+    }
+  },
+
+  computed: {
+    icon() {
+      return icons[this.task.status]
     }
   }
 }
