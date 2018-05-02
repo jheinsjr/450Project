@@ -5,7 +5,10 @@
          class="navbar-item"
          :key="route.to"
          :class="{'navbar-active': $route.path === route.to}">
-      <router-link :to="route.to">{{route.name}}</router-link>
+      <router-link class="link" :to="route.to">
+        <font-awesome-icon v-if="route.icon" :icon="route.icon" />
+        {{route.name}}
+      </router-link>
     </div>
     </div>
 
@@ -25,9 +28,9 @@ export default {
   data: function () {
     return {
       loggedInRoutes: [
-        {name: 'Tasks', to: '/tasks'},
-        {name: 'Team', to: '/team'},
-        {name: 'Archive', to: '/archive'}
+        {name: 'Tasks', to: '/tasks', icon: 'home'},
+        {name: 'Team', to: '/team', icon: 'address-book'},
+        {name: 'Archive', to: '/archive', icon: 'history'}
       ]
     }
   },
@@ -100,4 +103,5 @@ export default {
   background-color: #333;
   color: white;
 }
+
 </style>

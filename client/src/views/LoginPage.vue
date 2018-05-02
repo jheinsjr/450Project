@@ -46,9 +46,9 @@ export default {
   methods: {
     ...mapActions({loginAction: 'LOGIN'}),
 
-    login () {
+    async login () {
       let data = {'username': this.username, 'password': this.password}
-      this.loginAction(data)
+      await this.loginAction(data)
     }
   },
 

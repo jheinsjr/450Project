@@ -19,9 +19,9 @@ class Login(Resource):
 
         if user is not None and args.password == user.Password:
             session['user'] = {"name": user.Username, "user_id": user.Employee_ID}
-            return {"status": "success"}
+            return {"status": "success", "admin": user.Admin}
         else:
-            return {"status": "failed"}
+            return {"status": "failed", "message": "username or password incorrect"}
 
 
 class Logout(Resource):

@@ -6,6 +6,7 @@ from database.session import db, rest_api
 from database.setup import init_db
 import api.tasks # must keep
 import api.login # must keep
+import api.team # must keep
 
 
 def launch(mode):
@@ -28,7 +29,7 @@ def launch(mode):
         def root():
             return app.send_static_file('index.html')
 
-        app.run(port=80)
+        app.run(port=8080)
     else:
         @app.route('/', defaults={'path': 'index.html'})
         @app.route('/<path:path>')

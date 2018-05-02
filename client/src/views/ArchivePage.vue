@@ -12,7 +12,7 @@
 
     created () {
       if (!this.isLoggedIn) {
-        this.router.push('/welcome')
+        this.$router.push('/welcome')
       }
     },
 

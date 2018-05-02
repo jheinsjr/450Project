@@ -12,9 +12,15 @@
 
       Sort by:
       <select title="sortBy" v-model="sortBy">
-        <option :value="x => x.title">Name</option>
-        <option :value="x => x.creationDate">Date</option>
-        <option :value="x => x.createdBy.name">Author</option>
+        <option value="name">Name</option>
+        <option value="date">Date</option>
+        <option value="author">Author</option>
+      </select>
+
+      Order:
+      <select title="order" v-model="sortOrder">
+        <option value="asc">Asc</option>
+        <option value="desc">Desc</option>
       </select>
     </div>
 
@@ -23,7 +29,7 @@
         v-for="task in sortedList"
         :key="task.id"
         :task="task"
-        :show-admin="true"
+        :show-admin="$store.state.login.isAdmin"
         :expand="selectedId === task.id"
         @selected="setSelection(task.id)"
         @refresh="$emit('refresh')"
@@ -35,6 +41,12 @@
 <script>
 import sorting from '../util/sorting'
 
+const sortingFunctions = {
+  'name': x => x.title,
+  'date': x => x.creationDate,
+  'author': x => x.createdBy.name
+};
+
 export default {
   name: 'TaskList',
   props: [
@@ -44,7 +56,8 @@ export default {
 
   data () {
     return {
-      sortBy: 'title',
+      sortBy: 'name',
+      sortOrder: 'asc',
       filterBy: '',
       selectedId: -1
     }
@@ -64,7 +77,7 @@ export default {
 
     sortedList () {
       let taskCopy = this.filteredList.slice() // make a copy
-      taskCopy.sort(sorting.compareValues(this.sortBy))
+      taskCopy.sort(sorting.compareValues(sortingFunctions[this.sortBy], this.sortOrder))
       return taskCopy
     }
   }

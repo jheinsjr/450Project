@@ -24,12 +24,14 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    LOGIN_SUCCESS (state, username) {
+    LOGIN_SUCCESS (state, {username, admin}) {
       state.login.username = username
+      state.login.isAdmin = admin === 1
       state.login.errorMsg = ''
     },
     LOGIN_FAILED (state, response) {
       state.login.username = ''
+      state.login.isAdmin = false
       state.login.errorMsg = response
     },
     LOGOUT_SUCCESS (state) {
@@ -50,7 +52,7 @@ export default new Vuex.Store({
       const response = await Vue.axios.post('login', data)
 
       if (response.data.status === 'success') {
-        commit('LOGIN_SUCCESS', data.username)
+        commit('LOGIN_SUCCESS', {username: data.username, admin: response.data.admin})
       } else {
         commit('LOGIN_FAILED', response.data.message)
       }
